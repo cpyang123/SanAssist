@@ -23,6 +23,7 @@ def csv_to_sqlite(csv_path, db_path, table_name):
 
     print(f"Data successfully written to {db_path} in table '{table_name}'.")
 
+
 # For databricks use databricks_connection_string = "databricks+pyhive://<username>:<password>@<host>/<database>"
 # instead of db_path
 # Run the function

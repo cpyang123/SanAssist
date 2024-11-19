@@ -1,1 +1,1 @@
-print("hello")
+print("Nathan is dumb")
