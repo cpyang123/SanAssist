@@ -13,4 +13,6 @@ nbval == 0.11.0
 
 #databricks shit
 #databricks-sql-connector 
+pandas
 python-dotenv 
+sqlalchemy

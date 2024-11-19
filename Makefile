@@ -7,9 +7,8 @@ test:
 lint:
 	ruff check
 pylint:
-	find ./src/main_workspace -name "*.py" -exec pylint --disable=R,C {} +
+	find ./src -name "*.py" -exec pylint --disable=R,C {} +
 format:
-	find ./src/main_workspace -name "*.py" -exec black {} +
-	find ./src/tests -name "*.py" -exec black {} +
+	find ./src -name "*.py" -exec black {} +
 
 all: install test lint format

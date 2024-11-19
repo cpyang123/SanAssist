@@ -1,0 +1,22 @@
+name: Docker Image CI Install
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file .devcontainer/Dockerfile --tag my-image-name:$(date +%s)
+    - name: install requirements
+      run: |
+        make install
+    - run: echo "🍏 This job's status is ${{ job.status }}."
