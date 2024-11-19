@@ -1,0 +1,16 @@
+numpy
+pytest == 8.3.2
+black == 24.8.0 
+
+scikit-learn == 1.5.1
+
+#lints
+ruff == 0.6.5
+pylint == 3.2.7 
+
+#lets py.test recognise and collect Jupyter notebooks.
+nbval == 0.11.0
+
+#databricks shit
+#databricks-sql-connector 
+python-dotenv 
