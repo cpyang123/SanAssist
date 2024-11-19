@@ -16,3 +16,4 @@ nbval == 0.11.0
 pandas
 python-dotenv 
 sqlalchemy
+squirrels
