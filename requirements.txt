@@ -14,3 +14,4 @@ nbval == 0.11.0
 #databricks shit
 #databricks-sql-connector 
 python-dotenv 
+squirrels
