@@ -1,6 +1,6 @@
 project_variables:
-  name: sample
-  label: Sample Project
+  name: sanassist
+  label: San Assist API
   major_version: 1
 
 
@@ -21,32 +21,31 @@ connections:
 
 
 datasets:
-  - name: dataset_example                 ## model name uses same name unless "model" field is specified
+  - name: overview_dataset                 ## model name uses same name unless "model" field is specified
     label: Dataset Example
     model: federate_example               ## optional - if not specified, then the "name" field is used
     scope: public                         ## optional - one of 'public' (default), 'protected', or 'private'
     parameters:                           ## optional - if not specified, then all parameters are used
       - group_by
-      - description_filter
-      - start_date
-      - end_date
-      - category
-      - subcategory
-      - min_filter
-      - max_filter
+      - date_range
+      # - category
+      # - subcategory
+      - condition
+      - age_filter
+      # - min_filter
+      # - max_filter
+      - bp_between_filter
     traits: {}                            ## optional - defaults to empty object
   
-  - name: protected_dataset_example       ## requires auth.py file to work
-    label: Dataset Example 2
-    model: federate_example
+  - name: protected_dataset       ## requires auth.py file to work
+    label: Individual Records
+    model: personal_federate
     scope: protected
     parameters:
-      - group_by
-      - description_filter
+      - name_filter
       - date_range
-      - category
-      - subcategory
-      - between_filter
+      - age_filter
+      - bp_between_filter
     default_test_set: auth_test1          ## optional - if not specified, uses setting 'selection_test_sets.default_name_used'
 
 
@@ -59,11 +58,11 @@ selection_test_sets:
   
   - name: auth_test1
     datasets:
-      - protected_dataset_example
+      - protected_dataset
     user_attributes:                      ## optional section - required if using test set on non-public datasets
       role: customer
     parameters:
-      date_range: [2023-02-01,2023-12-01] ## this parameter only exists for dataset 'protected_dataset_example'
+      date_range: [2023-02-01, 2023-12-01] ## this parameter only exists for dataset 'protected_dataset_example'
     
   - name: auth_test2
     user_attributes:

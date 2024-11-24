@@ -18,11 +18,10 @@ def main(sqrl: ParametersArgs) -> None:
 
     ## Example of creating SingleSelectParameter and specifying each option by code
     group_by_options = [
-        po.SelectParameterOption("g0", "Transaction", columns=["masked_id", "date", "description"], aliases=["id", "date", "description"]),
-        po.SelectParameterOption("g1", "Date", columns=["date"]),
-        po.SelectParameterOption("g4", "Month", columns=["month"]),
-        po.SelectParameterOption("g2", "Category", columns=["category"]),
-        po.SelectParameterOption("g3", "Subcategory", columns=["category", "subcategory"]),
+        po.SelectParameterOption("g0", "Blood Type", columns=["[Blood Type]", "[Date of Admission]"], aliases=["blood_type", "date"]),
+        po.SelectParameterOption("g1", "Date", columns=["[Date of Admission]"]),
+        po.SelectParameterOption("g2", "Gender", columns=["[Date of Admission]", "Gender"]),
+        po.SelectParameterOption("g3", "Insurance", columns=["[Insurance Provider]", "[Date of Admission]"]),
     ]
     p.SingleSelectParameter.CreateWithOptions(
         "group_by", "Group By", group_by_options, description="Dimension(s) to aggregate by"
@@ -30,32 +29,32 @@ def main(sqrl: ParametersArgs) -> None:
 
     ## Example of creating a TextParameter
     parent_name = "group_by"
-    description_text_options = [
-        po.TextParameterOption(parent_option_ids="g0")
+    name_text_options = [
+        po.TextParameterOption(default_text="emily johnson")
     ]
     p.TextParameter.CreateWithOptions(
-        "description_filter", "Description Contains", description_text_options, parent_name=parent_name,
-        description="Substring of description to filter transactions by"
+        "name_filter", "Patient Name", name_text_options, 
+        description="The name of the patient"
     )
 
     ## Example of creating DateParameter from lookup query/table
     start_date_source = ds.DateDataSource(
-        "SELECT min(date) AS min_date, max(date) AS max_date FROM transactions",
-        default_date_col="min_date", min_date_col="min_date", max_date_col="max_date"
+        "SELECT min([Date of Admission]) AS min_date, max([Date of Admission]) AS max_date FROM patient_data",
+        default_date_col = "min_date", min_date_col="min_date", max_date_col="max_date"
     )
     p.DateParameter.CreateFromSource(
         "start_date", "Start Date", start_date_source, description="Start date to filter transactions by"
     )
 
     ## Example of creating DateParameter from list of DateParameterOption's
-    end_date_option = [po.DateParameterOption("2023-12-31", min_date="2023-01-01", max_date="2023-12-31")]
+    end_date_option = [po.DateParameterOption("2023-12-31", min_date="2010-01-01", max_date="2024-12-31")]
     p.DateParameter.CreateWithOptions(
         "end_date", "End Date", end_date_option, description="End date to filter transactions by"
     )
 
     ## Example of creating DateRangeParameter
     p.DateRangeParameter.CreateSimple(
-        "date_range", "Date Range", "2023-01-01", "2023-12-31", min_date="2023-01-01", max_date="2023-12-31",
+        "date_range", "Date Range", "2011-01-01", "2024-12-31", min_date="2010-01-01", max_date="2024-12-31",
         description="Date range to filter transactions by"
     )
 
@@ -63,6 +62,11 @@ def main(sqrl: ParametersArgs) -> None:
     category_ds = ds.SelectDataSource("seed_categories", "category_id", "category", from_seeds=True)
     p.MultiSelectParameter.CreateFromSource(
         "category", "Category Filter", category_ds, description="The expense categories to filter transactions by"
+    )
+    
+    
+    p.SingleSelectParameter.CreateFromSource(
+        "condition", "Condition", category_ds, description="Condition of Interest"
     )
 
     ## Example of creating MultiSelectParameter with parent from lookup query/table
@@ -75,21 +79,27 @@ def main(sqrl: ParametersArgs) -> None:
         description="The expense subcategories to filter transactions by (available options are based on selected value(s) of 'Category Filter')"
     )
 
-    ## Example of creating NumberParameter
-    p.NumberParameter.CreateSimple(
-        "min_filter", "Amounts Greater Than", min_value=0, max_value=500, increment=10,
-        description="Number to filter on transactions with an amount greater than this value"
-    )
+    # ## Example of creating NumberParameter
+    # p.NumberParameter.CreateSimple(
+    #     "min_filter", "Amounts Greater Than", min_value=0, max_value=500, increment=10,
+    #     description="Number to filter on transactions with an amount greater than this value"
+    # )
     
-    ## Example of creating NumberParameter from lookup query/table
-    query = "SELECT 0 as min_value, max(-amount) as max_value, 10 as increment FROM transactions WHERE category <> 'Income'"
-    max_amount_ds = ds.NumberDataSource(query, "min_value", "max_value", increment_col="increment", default_value_col="max_value")
-    p.NumberParameter.CreateFromSource(
-        "max_filter", "Amounts Less Than", max_amount_ds, description="Number to filter on transactions with an amount less than this value"
-    )
+    # ## Example of creating NumberParameter from lookup query/table
+    # query = "SELECT 0 as min_value, max(-amount) as max_value, 10 as increment FROM transactions WHERE category <> 'Income'"
+    # max_amount_ds = ds.NumberDataSource(query, "min_value", "max_value", increment_col="increment", default_value_col="max_value")
+    # p.NumberParameter.CreateFromSource(
+    #     "max_filter", "Amounts Less Than", max_amount_ds, description="Number to filter on transactions with an amount less than this value"
+    # )
 
     ## Example of creating NumberRangeParameter
     p.NumberRangeParameter.CreateSimple(
-        "between_filter", "Amounts Between", 0, 500, default_lower_value=10, default_upper_value=400,
-        description="Number range to filter on transactions with an amount within this range"
+        "bp_between_filter", "Systolic BP Between", 0, 200, default_lower_value=10, default_upper_value=100,
+        description="Number range to filter systolic blood pressure"
     )
+    
+    p.NumberRangeParameter.CreateSimple(
+        "age_filter", "Patients age between", 0, 100, default_lower_value=10, default_upper_value=20,
+        description="Age range of patient"
+    )
+

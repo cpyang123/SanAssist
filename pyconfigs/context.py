@@ -23,13 +23,18 @@ def main(ctx: dict[str, Any], sqrl: ContextArgs) -> None:
         ctx["order_by_cols"] = ", ".join((x+" DESC") for x in aliases)
         ctx["order_by_cols_list"] = aliases
 
-    if sqrl.param_exists("description_filter"):
-        descript_param = sqrl.prms["description_filter"]
-        assert isinstance(descript_param, p.TextParameter)
+    if sqrl.param_exists("name_filter"):
+        mame_param = sqrl.prms["name_filter"]
+        assert isinstance(mame_param, p.TextParameter)
 
-        desc_pattern = descript_param.get_entered_text().apply_percent_wrap()
+        name_pattern = mame_param.get_entered_text().apply_percent_wrap()
 
-        sqrl.set_placeholder("desc_pattern", desc_pattern)
+        sqrl.set_placeholder("name_pattern", name_pattern)
+        
+    if sqrl.param_exists("condition"):
+        condition_param = sqrl.prms["condition"]
+        assert isinstance(condition_param, p.SingleSelectParameter)
+        ctx["select_condition"] = "'" + condition_param.get_selected("label") + "'"
 
     if sqrl.param_exists("start_date"):
         start_date_param = sqrl.prms["start_date"]
@@ -71,24 +76,24 @@ def main(ctx: dict[str, Any], sqrl: ContextArgs) -> None:
         ctx["has_subcategories"] = subcategory_param.has_non_empty_selection()
         ctx["subcategories"] = subcategory_param.get_selected_labels_quoted_joined()
     
-    if sqrl.param_exists("min_filter"):
-        min_amount_filter = sqrl.prms["min_filter"]
-        assert isinstance(min_amount_filter, p.NumberParameter)
+    # if sqrl.param_exists("min_filter"):
+    #     min_amount_filter = sqrl.prms["min_filter"]
+    #     assert isinstance(min_amount_filter, p.NumberParameter)
 
-        min_amount = min_amount_filter.get_selected_value()
+    #     min_amount = min_amount_filter.get_selected_value()
 
-        sqrl.set_placeholder("min_amount", min_amount)
+    #     sqrl.set_placeholder("min_amount", min_amount)
     
-    if sqrl.param_exists("max_filter"):
-        max_amount_filter = sqrl.prms["max_filter"]
-        assert isinstance(max_amount_filter, p.NumberParameter)
+    # if sqrl.param_exists("max_filter"):
+    #     max_amount_filter = sqrl.prms["max_filter"]
+    #     assert isinstance(max_amount_filter, p.NumberParameter)
 
-        max_amount = max_amount_filter.get_selected_value()
+    #     max_amount = max_amount_filter.get_selected_value()
 
-        sqrl.set_placeholder("max_amount", max_amount)
+    #     sqrl.set_placeholder("max_amount", max_amount)
 
-    if sqrl.param_exists("between_filter"):
-        between_filter = sqrl.prms["between_filter"]
+    if sqrl.param_exists("bp_between_filter"):
+        between_filter = sqrl.prms["bp_between_filter"]
         assert isinstance(between_filter, p.NumberRangeParameter)
 
         min_amount = between_filter.get_selected_lower_value()
@@ -97,3 +102,12 @@ def main(ctx: dict[str, Any], sqrl: ContextArgs) -> None:
         sqrl.set_placeholder("min_amount", min_amount)
         sqrl.set_placeholder("max_amount", max_amount)
     
+    if sqrl.param_exists("age_filter"):
+        age_filter = sqrl.prms["age_filter"]
+        assert isinstance(age_filter, p.NumberRangeParameter)
+
+        min_age = age_filter.get_selected_lower_value()
+        max_age = age_filter.get_selected_upper_value()
+
+        sqrl.set_placeholder("min_age", min_age)
+        sqrl.set_placeholder("max_age", max_age)
