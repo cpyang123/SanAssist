@@ -81,7 +81,9 @@ ranges = {
 }
 
 # Generate all masks at once
-condition_masks = {condition: df["Medical Condition"] == condition for condition in ranges.keys()}
+condition_masks = {
+    condition: df["Medical Condition"] == condition for condition in ranges.keys()
+}
 print("for condition", condition_masks.keys())
 # Apply values for each condition
 for condition, mask in condition_masks.items():

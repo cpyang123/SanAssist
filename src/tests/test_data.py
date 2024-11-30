@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 def test_data_augmentation():
     # Load the dataset
     file_path = "data/augmented_patient_data.csv"
@@ -10,15 +11,38 @@ def test_data_augmentation():
     assert not df.empty, "The CSV file is empty"
 
     # Test 2: Check if all expected columns are present
-    expected_columns = ["Name", "Medical Condition", "Systolic BP", "Diastolic BP", "Heart Rate", "BMI", "SpO2", "Creatinine", "CRP", "WBC Count", "Hemoglobin"]
-    assert all(col in df.columns for col in expected_columns), "Missing expected columns"
+    expected_columns = [
+        "Name",
+        "Medical Condition",
+        "Systolic BP",
+        "Diastolic BP",
+        "Heart Rate",
+        "BMI",
+        "SpO2",
+        "Creatinine",
+        "CRP",
+        "WBC Count",
+        "Hemoglobin",
+    ]
+    assert all(
+        col in df.columns for col in expected_columns
+    ), "Missing expected columns"
 
     # Test 3: Check if 'Name' column is lowercase
     assert df["Name"].str.islower().all(), "Not all names are in lowercase"
 
     # Test 4: Check if 'Medical Condition' only contains expected conditions
-    expected_conditions = ["Cancer", "Obesity", "Diabetes", "Asthma", "Hypertension", "Arthritis"]
-    assert df["Medical Condition"].isin(expected_conditions).all(), "Unexpected medical condition found"
+    expected_conditions = [
+        "Cancer",
+        "Obesity",
+        "Diabetes",
+        "Asthma",
+        "Hypertension",
+        "Arthritis",
+    ]
+    assert (
+        df["Medical Condition"].isin(expected_conditions).all()
+    ), "Unexpected medical condition found"
 
     # Test 5: Check if numeric columns are within expected ranges
     ranges = {
@@ -34,7 +58,9 @@ def test_data_augmentation():
     }
 
     for col, (min_val, max_val) in ranges.items():
-        assert df[col].between(min_val, max_val).all(), f"{col} contains values outside the expected range"
+        assert (
+            df[col].between(min_val, max_val).all()
+        ), f"{col} contains values outside the expected range"
 
     # Test 6: Check if there are no null values
     assert not df.isnull().any().any(), "Dataset contains null values"
@@ -47,9 +73,12 @@ def test_data_augmentation():
     # Test 8: Check if float columns have at most one decimal place
     float_columns = ["BMI", "Creatinine", "CRP", "Hemoglobin"]
     for col in float_columns:
-        assert df[col].apply(lambda x: len(str(x).split('.')[-1]) <= 1).all(), f"{col} has values with more than one decimal place"
+        assert (
+            df[col].apply(lambda x: len(str(x).split(".")[-1]) <= 1).all()
+        ), f"{col} has values with more than one decimal place"
 
     print("All tests passed successfully!")
+
 
 if __name__ == "__main__":
     test_data_augmentation()
