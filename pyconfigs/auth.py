@@ -5,7 +5,7 @@ from squirrels import User as UserBase, AuthArgs, WrongPassword
 class User(UserBase):
     def set_attributes(self, **kwargs) -> None:
         """
-        Use this method to add custom attributes in the User model that don't exist in UserBase 
+        Use this method to add custom attributes in the User model that don't exist in UserBase
         (i.e., anything that's not 'username' or 'is_internal')
         """
         self.role = kwargs["role"]
@@ -25,21 +25,23 @@ def get_user_if_valid(sqrl: AuthArgs) -> Union[User, WrongPassword, None]:
             "username": "johndoe",
             "is_admin": True,
             "role": "manager",
-            "hashed_password": str(hash("I<3Squirrels"))
+            "hashed_password": str(hash("I<3Squirrels")),
         },
         "mattdoe": {
             "username": "mattdoe",
             "is_admin": False,
             "role": "customer",
-            "hashed_password": str(hash("abcd5678"))
-        }
+            "hashed_password": str(hash("abcd5678")),
+        },
     }
 
     user_obj = mock_users_db.get(sqrl.username)
     if user_obj is None:
         return None
-    
+
     if str(hash(sqrl.password)) == user_obj["hashed_password"]:
-        return User.Create(sqrl.username, is_internal=user_obj["is_admin"], role=user_obj["role"])
+        return User.Create(
+            sqrl.username, is_internal=user_obj["is_admin"], role=user_obj["role"]
+        )
     else:
         return WrongPassword()

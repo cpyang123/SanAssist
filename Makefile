@@ -1,3 +1,6 @@
+# Define the image name
+IMAGE_NAME = san_assist
+
 install:
 	pip install -r requirements.txt
 
@@ -9,12 +12,9 @@ lint:
 pylint:
 	find ./src -name "*.py" -exec pylint --disable=R,C {} +
 format:
-	find ./src -name "*.py" -exec black {} +
+	find . -name "*.py" -exec black {} +
 
 all: install test lint format
-
-# Define the image name
-IMAGE_NAME = san_assist
 
 # Build the Docker image
 build:
