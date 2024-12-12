@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Add /usr/bin to PATH explicitly
-ENV PATH="/usr/bin:$PATH"
+# ENV PATH="/usr/bin:$PATH"
 
 # Set the working directory in the container
 # this allows for any subsequent commands to be run from this directory

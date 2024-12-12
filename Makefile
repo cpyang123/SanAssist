@@ -14,8 +14,7 @@ format:
 all: install test lint format
 
 # Define the image name
-IMAGE_NAME = squirrels-app
-DOCKER_ID_USER = nathan46
+IMAGE_NAME = san_assist
 
 # Build the Docker image
 build:
@@ -29,16 +28,5 @@ run:
 clean:
 	docker rmi $(IMAGE_NAME)
 
-image_show:
-	docker images
-
 container_show:
 	docker ps
-
-push:
-	docker login
-	docker tag $(IMAGE_NAME) $(DOCKER_ID_USER)/$(IMAGE_NAME)
-	docker push $(DOCKER_ID_USER)/$(IMAGE_NAME):latest
-
-login:
-	docker login -u ${DOCKER_ID_USER}
