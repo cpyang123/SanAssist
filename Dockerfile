@@ -7,8 +7,10 @@ RUN apt-get update && apt-get install -y \
     git docker.io \
     && rm -rf /var/lib/apt/lists/*
 
-# Add /usr/bin to PATH explicitly
-# ENV PATH="/usr/bin:$PATH"
+
+ARG OPENAI_API_KEY
+ENV OPENAI_API_KEY=$OPENAI_API_KEY
+
 
 # Set the working directory in the container
 WORKDIR /app
