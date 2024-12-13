@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory in the container
 WORKDIR /app
 
-COPY . /app 
+# COPY . /app 
 # # Copy specific directories
 COPY assets /app/assets
 COPY data /app/data
