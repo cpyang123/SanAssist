@@ -1,5 +1,12 @@
 from squirrels import DashboardArgs, dashboards as d
 from matplotlib import pyplot as plt, figure as f, axes as a
+import io
+import base64
+import torch
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+
+
 
 
 async def main(sqrl: DashboardArgs) -> d.PngDashboard:
@@ -11,13 +18,11 @@ async def main(sqrl: DashboardArgs) -> d.PngDashboard:
     It is imperative to set the correct return type in the function signature for "main" above! It allows Squirrels to provide the correct format to
     the data catalog without having to run this function.
     """
+    
     spending_by_month_df = await sqrl.dataset(
-        "dataset_example", fixed_parameters={"group_by": "g4"}
+        "overview_dataset", fixed_parameters={"group_by": "g4"}
     )
-    spending_by_subcategory_df = await sqrl.dataset(
-        "dataset_example", fixed_parameters={"group_by": "g3"}
-    )
-
+    
     # Create a figure with two subplots
     fig, (ax0, ax1) = plt.subplots(2, 1, figsize=(8, 8), height_ratios=(1, 2))
     fig: f.Figure
@@ -40,3 +45,40 @@ async def main(sqrl: DashboardArgs) -> d.PngDashboard:
     ax1.set_title("Spending by Subcategory")
 
     return d.PngDashboard(fig)
+
+
+
+def generate_html_with_plot(plot, description):
+    """
+    Converts a pyplot plot and a description into an HTML string
+    that displays the plot and its description.
+
+    :param plot: A matplotlib.pyplot plot
+    :param description: A string description of the plot
+    :return: An HTML string
+    """
+    # Save the plot to a BytesIO buffer
+    buf = io.BytesIO()
+    plot.savefig(buf, format='png', bbox_inches='tight')
+    buf.seek(0)
+
+    # Encode the image to base64
+    encoded_image = base64.b64encode(buf.read()).decode('utf-8')
+    buf.close()
+
+    # Create the HTML string
+    html_template = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Plot with Description</title>
+    </head>
+    <body>
+        <h1>Plot</h1>
+        <img src="data:image/png;base64,{encoded_image}" alt="Plot Image">
+        <p>{description}</p>
+    </body>
+    </html>
+    """
+    return html_template
+

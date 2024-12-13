@@ -21,11 +21,71 @@ instruction = (
     "Provide a detailed and compassionate treatment plan to the patient's description "
     "based on the symptoms the patient describes, also consider the patient's known history "
     "from the provided database."
+    "Be sure to note any metrics that look concerning"
 )
 
 def generate_response_with_patient_data(user_input: str, patient_db: dict) -> str:
     """
     Generates a response from the model given user input and patient database information.
+    
+    Args:
+        user_input (str): The patient's description or query.
+        patient_db (dict): A dictionary containing patient-specific data (e.g. name, history, known conditions).
+        
+    Returns:
+        str: The doctor's response from the model.
+    """
+    # Convert the patient database to a string (e.g., JSON format)
+    patient_db_str = json.dumps(patient_db, indent=2)
+
+    # Incorporate patient DB info into the prompt
+    prompt = (
+        f"{instruction}\n\n"
+        f"Patient Database:\n{patient_db_str}\n\n"
+        f"Patient's Concern: {user_input}\n\nDoctor's Response:"
+    )
+
+    # Tokenize the prompt
+    inputs = tokenizer(prompt, return_tensors='pt').to(device)
+
+    # Generate model output
+    with torch.no_grad():
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=500,
+            do_sample=True,
+            temperature=0.8,
+            top_p=0.5,
+            repetition_penalty=1.01,
+            no_repeat_ngram_size=4,
+            pad_token_id=tokenizer.eos_token_id,
+        )
+
+    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    # Extract the doctor's response
+    response_start = generated_text.find("Doctor's Response:")
+    if response_start != -1:
+        response = generated_text[response_start + len("Doctor's Response:"):].strip()
+    else:
+        response = generated_text[len(prompt):].strip()
+
+    # If the model tries to mention "Patient's Description:" again, remove it
+    if response.startswith("Patient's Concern:"):
+        response = response.split("Patient's Concern:")[0].strip()
+
+    return response
+
+
+instruction_overarching = (
+    "You are an experienced medical doctor. "
+    "You are provided with a time series of medical data. Analyze it and note any trends that may be present"
+    "and give possible suggestions to solve the problem when applicable."
+)
+
+def generate_response_with_overarching_data(user_input: str, patient_db: dict) -> str:
+    """
+    Generates a response from the model given user input and data context.
     
     Args:
         user_input (str): The patient's description or query.
@@ -51,7 +111,7 @@ def generate_response_with_patient_data(user_input: str, patient_db: dict) -> st
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
-            max_new_tokens=200,
+            max_new_tokens=500,
             do_sample=True,
             temperature=0.8,
             top_p=0.5,
@@ -74,6 +134,7 @@ def generate_response_with_patient_data(user_input: str, patient_db: dict) -> st
         response = response.split("Patient's Description:")[0].strip()
 
     return response
+
 
 if __name__ == "__main__":
 

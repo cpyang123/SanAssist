@@ -26,12 +26,24 @@ def main(ctx: dict[str, Any], sqrl: ContextArgs) -> None:
         ctx["order_by_cols_list"] = aliases
 
     if sqrl.param_exists("name_filter"):
-        mame_param = sqrl.prms["name_filter"]
-        assert isinstance(mame_param, p.TextParameter)
+        name_param = sqrl.prms["name_filter"]
+        assert isinstance(name_param, p.TextParameter)
 
-        name_pattern = mame_param.get_entered_text().apply_percent_wrap()
+        name_pattern = name_param.get_entered_text().apply_percent_wrap()
+        
+        # ctx["raw_name"] = str(name_param.get_entered_text())
 
         sqrl.set_placeholder("name_pattern", name_pattern)
+
+    if sqrl.param_exists("prompt_text"):
+        prompt_param = sqrl.prms["prompt_text"]
+        assert isinstance(prompt_param, p.TextParameter)
+
+        prompt_pattern = prompt_param.get_entered_text()
+        
+        # ctx["raw_name"] = str(name_param.get_entered_text())
+
+        sqrl.set_placeholder("prompt_pattern", prompt_pattern)
 
     if sqrl.param_exists("condition"):
         condition_param = sqrl.prms["condition"]

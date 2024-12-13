@@ -53,6 +53,14 @@ def main(sqrl: ParametersArgs) -> None:
         name_text_options,
         description="The name of the patient",
     )
+    
+    prompt_opt = [po.TextParameterOption(default_text="How's the patient looking like?")]
+    p.TextParameter.CreateWithOptions(
+        "prompt_text",
+        "Prompt",
+        prompt_opt,
+        description="Prompt for the LLM",
+    )
 
     ## Example of creating DateParameter from lookup query/table
     start_date_source = ds.DateDataSource(
@@ -144,7 +152,7 @@ def main(sqrl: ParametersArgs) -> None:
         0,
         200,
         default_lower_value=10,
-        default_upper_value=100,
+        default_upper_value=200,
         description="Number range to filter systolic blood pressure",
     )
 
@@ -154,6 +162,6 @@ def main(sqrl: ParametersArgs) -> None:
         0,
         100,
         default_lower_value=10,
-        default_upper_value=20,
+        default_upper_value=90,
         description="Age range of patient",
     )

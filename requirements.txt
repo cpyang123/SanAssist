@@ -20,4 +20,4 @@ squirrels
 transformers 
 datasets 
 peft
-
+plotly

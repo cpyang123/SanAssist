@@ -2,7 +2,7 @@ WITH
 patient_data_with_masked_id AS (
     SELECT *,
 {%- if user.role == "manager" %}
-        id as Name
+        Name as Name
 {%- else %}
         '***' as Name
 {%- endif %},

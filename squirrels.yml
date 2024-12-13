@@ -12,17 +12,15 @@ packages: []
 #     revision: v0.1.0
 #     directory: custom_name ## optional
 
-
 ## Uses SQLAlchemy URLs. More details here: https://docs.sqlalchemy.org/en/latest/core/engines.html
 connections:
   - name: default
     credential: null
-    url: {{ env_vars.sqlite_conn_str }}   ## using Jinja to substitute environment variable from env.yml
-
+    url: {{ env_vars.sqlite_conn_str }}  ## using Jinja to substitute environment variable from env.yml
 
 datasets:
-  - name: overview_dataset                 ## model name uses same name unless "model" field is specified
-    label: Dataset Example
+  - name: overview_dataset                ## model name uses same name unless "model" field is specified
+    label: Condition Overview
     model: federate_example               ## optional - if not specified, then the "name" field is used
     scope: public                         ## optional - one of 'public' (default), 'protected', or 'private'
     parameters:                           ## optional - if not specified, then all parameters are used
@@ -35,7 +33,24 @@ datasets:
       # - min_filter
       # - max_filter
       - bp_between_filter
-    traits: {}                            ## optional - defaults to empty object
+    traits: {}       
+
+  - name: overview_dataset_dash               ## model name uses same name unless "model" field is specified
+    label: (Internal) Condition Overview
+    model: federate_example_dash           ## optional - if not specified, then the "name" field is used
+    scope: public                         ## optional - one of 'public' (default), 'protected', or 'private'
+    parameters:                           ## optional - if not specified, then all parameters are used
+      - group_by
+      - date_range
+      # - category
+      # - subcategory
+      - condition
+      - age_filter
+      # - min_filter
+      # - max_filter
+      - prompt_text
+      - bp_between_filter
+    traits: {}                        ## optional - defaults to empty object
   
   - name: protected_dataset       ## requires auth.py file to work
     label: Individual Records
@@ -46,8 +61,20 @@ datasets:
       - date_range
       - age_filter
       - bp_between_filter
-    default_test_set: auth_test1          ## optional - if not specified, uses setting 'selection_test_sets.default_name_used'
+    default_test_set: auth_test1   
+           ## optional - if not specified, uses setting 'selection_test_sets.default_name_used'
 
+  - name: protected_dataset_dash     ## requires auth.py file to work
+    label: (Internal) Individual Records
+    model: personal_federate_dash
+    scope: protected
+    parameters:
+      - name_filter
+      - date_range
+      - age_filter
+      - bp_between_filter
+      - prompt_text
+    default_test_set: auth_test1  
 
 selection_test_sets:
   - name: no_auth_test1
@@ -72,8 +99,30 @@ selection_test_sets:
     parameters:
       group_by: g3                        ## this parameter exists for all datasets. "g3" is the id for option "subcategory"
 
-
 settings: {}
+
+dashboards:
+  - name: dashboard_example
+    label: Overview Dashboard
+    scope: public
+    parameters:
+      - group_by
+      - date_range
+      - condition
+      - age_filter
+      - bp_between_filter
+      - prompt_text
+
+  - name: personal_record_dash
+    label: Personal Records Dashboards
+    scope: protected
+    parameters:
+      - name_filter
+      - date_range
+      - age_filter
+      # - bp_between_filter
+      - prompt_text
+
 
 ## Default values for settings:
 #   auth.token.expire_minutes: 30
