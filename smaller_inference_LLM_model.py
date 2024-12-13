@@ -1,10 +1,13 @@
 import openai
 import json
 import os
+from dotenv import load_dotenv
 
-# Set your OpenAI API key securely
-openai.api_key = "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" #os.getenv('OPENAI_API_KEY')  # Recommended to use environment variables
 
+load_dotenv()
+
+
+openai.api_key = os.getenv('OPENAI_API_KEY')
 instruction = (
     "You are an experienced medical doctor. "
     "Provide a detailed and compassionate treatment plan to the patient's description "
