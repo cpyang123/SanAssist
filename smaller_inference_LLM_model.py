@@ -35,7 +35,7 @@ def get_secret():
 
 # openai.api_key = os.getenv('OPENAI_API_KEY')
 
-openai.api_key = get_secret()
+openai.api_key = json.loads(get_secret())["OPENAI_API_KEY"]
 
 
 instruction = (
