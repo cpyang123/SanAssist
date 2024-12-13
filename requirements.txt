@@ -17,9 +17,9 @@ pandas
 python-dotenv 
 sqlalchemy
 squirrels
-transformers 
-datasets 
-peft
+# transformers 
+# datasets 
+# peft
 plotly
 openai==0.28
 python-dotenv
