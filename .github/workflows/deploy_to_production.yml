@@ -28,6 +28,8 @@ jobs:
         aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin ${{ secrets.AWS_ID }}.dkr.ecr.us-east-2.amazonaws.com
 
     - name: Build and Push Docker Image
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         docker build -t san_assist .
         docker tag san_assist:latest ${{ secrets.AWS_ID }}.dkr.ecr.us-east-2.amazonaws.com/san_assist:latest
