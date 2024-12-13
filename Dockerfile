@@ -25,6 +25,7 @@ COPY dashboards /app/dashboards
 
 
 # Copy specific files
+COPY smaller_inference_LLM_model.py /app/smaller_inference_LLM_model.py
 COPY Dockerfile /app/Dockerfile
 COPY env.yml /app/env.yml
 COPY inference_LLM_model.py /app/inference_LLM_model.py
