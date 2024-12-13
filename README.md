@@ -31,7 +31,7 @@
   - Email: [syedhumarahim@gmail.com](mailto:syedhumarahim@gmail.com)  
   - Duke Email: [ss1516@duke.edu](mailto:ss1516@duke.edu)  
 
-![SanAssist](sanassist_image.webp)
+![SanAssist](readme_imgs/sanassist_image.webp)
 
 ## Overview
 SanAssist is an innovative web application designed to empower healthcare professionals with seamless data analysis and intelligent querying capabilities. By combining interactive dashboards created using the Squirrels library with a fine-tuned Large Language Model (LLM), SanAssist enables users to interact with datasets dynamically and derive actionable insights effortlessly.
@@ -92,7 +92,7 @@ SanAssist is an innovative web application designed to empower healthcare profes
 
 ### Architetcure Diagram
 
-![Architetcure Diagram](ad.png)
+![Architetcure Diagram](readme_imgs/de_flow.png)
 
 ### Data Engineering Workflow Overview
 
@@ -174,13 +174,13 @@ This pipeline ensures seamless data processing, visualization, and intelligent i
 
 The SanAssist web application includes an interactive, user-friendly dashboard powered by the Squirrels library, designed to provide healthcare professionals with powerful tools to explore, visualize, and analyze patient data. The dashboard integrates seamlessly with the LLM chatbot, allowing users to ask complex questions about data trends, treatment plans, and patient-specific insights.
 
-![Dashboard Screenshots](dash1.jpeg)
+![Dashboard Screenshots](readme_imgs/dash1.jpeg)
 
-![Dashboard Screenshots](dash2.jpeg)
+![Dashboard Screenshots](readme_imgs/dash2.jpeg)
 
-![Dashboard Screenshots](dash3.jpeg)
+![Dashboard Screenshots](readme_imgs/dash3.jpeg)
 
-![Dashboard Screenshots](dash4.jpeg)
+![Dashboard Screenshots](readme_imgs/dash4.jpeg)
 
 
 The screenshots above showcase the following features of the **SanAssist** dashboard:
@@ -417,7 +417,7 @@ This comprehensive setup ensures SanAssist is highly scalable, reliable, and mai
 
 To ensure the reliability and stability of the SanAssist platform, we conducted comprehensive load testing using **Locust**. The tests measured the system's performance under simulated load conditions, with 10,000 concurrent users performing 5,000 requests each. Below is the detailed quantitative assessment of the results:
 
-![Load Testing Results](load_testing.jpeg)
+![Load Testing Results](readme_imgs/load_testing.jpeg)
 
 ---
 
