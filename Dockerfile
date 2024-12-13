@@ -36,8 +36,6 @@ COPY squirrels.yml /app/squirrels.yml
 # Install required Python packages
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN python -c "from transformers import GPT2LMHeadModel; GPT2LMHeadModel.from_pretrained('gpt2').save_pretrained('/model')"
-
 # Expose port 4465 for external access
 EXPOSE 4465
 
