@@ -236,27 +236,41 @@ The screenshots above showcase the following features of the **SanAssist** dashb
 - AWS CLI: For pushing images and managing deployments.
 - Python 3.10: To run the backend API.
 
-### Installation Steps:
-1. **Clone the repository**:
+
+---
+
+### Installation Steps for Local Testing  
+
+This project includes a Docker image for easy local setup. When running locally, a **post-create command** will handle the installation of all required dependencies. Follow the steps below to test locally:  
+
+1. **Clone the Repository**:  
     ```bash
     git clone https://github.com/cpyang123/SanAssist.git
     cd SanAssist
-    ```
-2. **Install dependencies**:
+    ```  
+
+2. **Install Dependencies** (Optional for Docker users):  
+    If you're not using Docker, install the dependencies manually:  
     ```bash
     pip install -r requirements.txt
-    ```
-    This is done automatically when setting up Docker.
-3. **Build Docker image**:
+    ```  
+    > Note: This step is handled automatically when setting up Docker.  
+
+3. **Build the Docker Image**:  
     ```bash
     make build
-    ```
-4.  **Test Locally**:
+    ```  
+    > Note: This step is handled automatically when pushing to main through GitHub Actions.
+
+4. **Run the Application Locally**:  
     ```bash
     make run
-    ```
-5. **Push to AWS ECR and deploy via App Runner**.
-    Done with github actions.
+    ```  
+
+5. **Deploy to AWS**:  
+    Push the Docker image to **AWS ECR** and deploy via **App Runner**.  
+    > Deployment is automated through GitHub Actions.  
+
 
 ---
 
@@ -308,7 +322,7 @@ SanAssist leverages **Databricks** and **Pandas** to power its **ETL (Extract, T
 
 ### **Infrastructure as Code (IaC)**
 
-The infrastructure for SanAssist is managed programmatically using **AWS CloudFormation**, ensuring consistent, scalable, and reproducible setups.
+The infrastructure for SanAssist is managed programmatically using **Github Actions Connecting to AWS ECR**, ensuring consistent, scalable, and reproducible setups.
 
 **Key Components**:
 1. **AWS ECR**:
@@ -316,12 +330,11 @@ The infrastructure for SanAssist is managed programmatically using **AWS CloudFo
    - Configured via templates for automated repository creation.
 
 2. **AWS App Runner**:
-   - Deployed via CloudFormation to automatically retrieve and deploy the latest Docker image from ECR.
+   - Deployed to automatically retrieve and deploy the latest Docker image from ECR.
 
 3. **IaC Benefits**:
    - **Reproducibility**: Entire infrastructure can be recreated in minutes using CloudFormation templates.
    - **Scalability**: CloudFormation simplifies scaling configurations for future growth.
-
 ---
 
 ### **Continuous Integration and Continuous Delivery (CI/CD)**
