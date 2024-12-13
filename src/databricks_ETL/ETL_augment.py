@@ -15,8 +15,16 @@ def augment_data(input_file_path, output_file_path):
 
     # Ensure all required columns exist
     required_columns = [
-        "Systolic BP", "Diastolic BP", "Heart Rate", "BMI", "SpO2",
-        "Creatinine", "CRP", "WBC Count", "Hemoglobin", "Medical Condition"
+        "Systolic BP",
+        "Diastolic BP",
+        "Heart Rate",
+        "BMI",
+        "SpO2",
+        "Creatinine",
+        "CRP",
+        "WBC Count",
+        "Hemoglobin",
+        "Medical Condition",
     ]
     for col_name in required_columns:
         if col_name not in df.columns:
@@ -129,9 +137,9 @@ if __name__ == "__main__":
     # Copy the file to DBFS
     dbutils.fs.cp(
         "file:/Workspace/Users/mh720@duke.edu/SanAssist/src/databricks_ETL/data/healthcare_dataset.csv",
-        "dbfs:/data/healthcare_dataset.csv"
+        "dbfs:/data/healthcare_dataset.csv",
     )
-    
+
     # Verify input file exists
     display(dbutils.fs.ls("dbfs:/data/"))
 
@@ -146,9 +154,16 @@ if __name__ == "__main__":
     files = dbutils.fs.ls(output_file_path)
     for file in files:
         if file.name.startswith("part-"):
-            dbutils.fs.cp(file.path, "file:/Workspace/Users/mh720@duke.edu/SanAssist/src/databricks_ETL/data/augmented_patient_data.csv")
+            dbutils.fs.cp(
+                file.path,
+                "file:/Workspace/Users/mh720@duke.edu/SanAssist/src/databricks_ETL/data/augmented_patient_data.csv",
+            )
             break
 
     # Verify the file exists in the workspace path
     print("File copied to the workspace path:")
-    display(dbutils.fs.ls("file:/Workspace/Users/mh720@duke.edu/SanAssist/src/databricks_ETL/data/"))
+    display(
+        dbutils.fs.ls(
+            "file:/Workspace/Users/mh720@duke.edu/SanAssist/src/databricks_ETL/data/"
+        )
+    )

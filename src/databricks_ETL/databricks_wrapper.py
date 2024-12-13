@@ -25,6 +25,7 @@ else:
     print(f"Error starting job: {response.text}")
     exit(1)
 
+
 # Monitor job
 def monitor_job(run_id):
     get_status_url = f"https://{databricks_url}/api/2.1/jobs/runs/get"
@@ -115,7 +116,7 @@ print(df)
 sqlite_db_path = "data/patient_data_test.db"
 table_name = "patient_data"
 
- # Create a database connection (SQLite)
+# Create a database connection (SQLite)
 engine = create_engine(f"sqlite:///{db_path}")
 
 # Write the DataFrame to the SQLite database
