@@ -1,33 +1,15 @@
-from pyspark.sql import SparkSession
+df = spark.read.csv("dbfs:/data/augmented_patient_data.csv", header=True, inferSchema=True)
 
 
-def csv_to_delta(input_file_path, delta_table_path):
-    # Create Spark session
-    spark = SparkSession.builder.appName("CSV to Delta").getOrCreate()
+original_columns = df.columns
+new_columns = [col.lower().replace(" ", "_") for col in original_columns]
 
-    # Load augmented data into a Spark DataFrame
-    augmented_df = spark.read.option("header", True).csv(input_file_path)
+column_mapping = dict(zip(original_columns, new_columns))
+reverse_column_mapping = dict(zip(new_columns, original_columns))
 
-    # Save DataFrame to a Delta table
-    augmented_df.write.format("delta").mode("overwrite").save(delta_table_path)
-    print("Data successfully written to Delta table at:", delta_table_path)
+df = df.toDF(*new_columns)
 
-    # Register the Delta table in the Databricks metastore (optional)
-    spark.sql(
-        f"""
-    CREATE TABLE IF NOT EXISTS patient_data
-    USING DELTA
-    LOCATION '{delta_table_path}'
-    """
-    )
+df.write.format("delta").mode("overwrite").saveAsTable("ids706_data_engineering.sanassist_healthcare.healthcare_data_augmented")
 
+display(df)
 
-# Main function
-if __name__ == "__main__":
-    input_file_path = (
-        "/dbfs/data/augmented_patient_data.csv"  # Adjust the path as needed
-    )
-    delta_table_path = (
-        "/mnt/delta/patient_data"  # Adjust the Delta table path as needed
-    )
-    csv_to_delta(input_file_path, delta_table_path)
