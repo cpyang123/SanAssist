@@ -31,6 +31,6 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        docker build -t san_assist .
+        docker build --build-arg OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} -t san_assist .
         docker tag san_assist:latest ${{ secrets.AWS_ID }}.dkr.ecr.us-east-2.amazonaws.com/san_assist:latest
         docker push ${{ secrets.AWS_ID }}.dkr.ecr.us-east-2.amazonaws.com/san_assist:latest
