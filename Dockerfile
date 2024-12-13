@@ -1,6 +1,7 @@
 # Use the official Python image from the Docker Hub
 FROM python:3.10-slim
 
+
 # Install git and docker.io, then clean up the apt cache
 RUN apt-get update && apt-get install -y \
     git docker.io \
@@ -27,6 +28,8 @@ COPY inference_LLM_model.py /app/inference_LLM_model.py
 COPY Makefile /app/Makefile
 COPY requirements.txt /app/requirements.txt
 COPY squirrels.yml /app/squirrels.yml
+
+RUN python -c "from transformers import GPT2LMHeadModel; GPT2LMHeadModel.from_pretrained('gpt2').save_pretrained('/model')"
 
 # Install required Python packages
 RUN pip install --no-cache-dir -r requirements.txt
