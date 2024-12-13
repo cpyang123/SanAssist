@@ -3,11 +3,11 @@
 
 [![Build and Push Docker Image to Configure AWS ECR, AWS app runner will pull form the latest version](https://github.com/cpyang123/SanAssist/actions/workflows/deploy_to_production.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/deploy_to_production.yml)
 
-[![Docker Image CI Format](https://github.com/cpyang123/SanAssist/actions/workflows/format.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/format.yml) [![Docker Image CI Install](https://github.com/cpyang123/SanAssist/actions/workflows/install.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/install.yml)
+[![Docker Image CI Format](https://github.com/cpyang123/SanAssist/actions/workflows/format.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/format.yml) [![Docker Image CI Install](https://github.com/cpyang123/SanAssist/actions/workflows/install.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/install.yml) [![Docker Image CI Test](https://github.com/cpyang123/SanAssist/actions/workflows/test.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/test.yml)
 
 [![Docker Image CI Lint](https://github.com/cpyang123/SanAssist/actions/workflows/lint.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/lint.yml) [![Docker Image CI Main](https://github.com/cpyang123/SanAssist/actions/workflows/main.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/main.yml)
 
-[![Docker Image CI Test](https://github.com/cpyang123/SanAssist/actions/workflows/test.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/test.yml)
+
 
 ## Table of Contents
 - [Overview](#overview)
