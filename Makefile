@@ -9,6 +9,7 @@ test:
 	
 lint:
 	ruff check
+	
 pylint:
 	find ./src -name "*.py" -exec pylint --disable=R,C {} +
 format:

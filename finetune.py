@@ -1,9 +1,10 @@
 import json
 from datasets import Dataset
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments
-from transformers import DataCollatorForLanguageModeling
 import torch
 from peft import get_peft_model, LoraConfig
+from transformers import default_data_collator
+
 
 # 1. Load the distilgpt2 model and tokenizer
 # tokenizer = GPT2Tokenizer.from_pretrained('distilgpt2')
@@ -136,7 +137,6 @@ tokenized_dataset = dataset.map(
 )
 
 # 5. Prepare data collator
-from transformers import default_data_collator
 
 data_collator = default_data_collator
 

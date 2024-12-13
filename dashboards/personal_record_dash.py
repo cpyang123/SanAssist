@@ -1,8 +1,5 @@
-import pandas as pd
 import plotly.graph_objects as go
-import plotly.express as px
 from squirrels import DashboardArgs, dashboards as d
-from plotly.subplots import make_subplots
 import plotly.subplots as sp
 from inference_LLM_model import generate_response_with_patient_data
 

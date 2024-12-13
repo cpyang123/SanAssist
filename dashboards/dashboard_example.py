@@ -2,9 +2,6 @@ from squirrels import DashboardArgs, dashboards as d
 from matplotlib import pyplot as plt, figure as f, axes as a
 import io
 import base64
-import torch
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
-
 
 
 
@@ -34,10 +31,7 @@ async def main(sqrl: DashboardArgs) -> d.PngDashboard:
     spending_by_month_df.sort_values("month").plot(x="month", y="total_amount", ax=ax0)
     ax0.set_title("Spending by Month")
 
-    # Create a pie chart of spending by subcategory
-    df_by_subcategory = spending_by_subcategory_df.set_index("subcategory").sort_values(
-        "total_amount", ascending=False
-    )
+
     autopct = lambda pct: ("%.1f%%" % pct) if pct > 6 else ""
     df_by_subcategory.plot(
         y="total_amount", kind="pie", ax=ax1, autopct=autopct, legend=False, ylabel=""
