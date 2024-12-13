@@ -76,7 +76,8 @@ SanAssist is an innovative web application designed to empower healthcare profes
 ---
 
 ## Live Demonstration:
-- **SanAssist Live Application**: [https://unp5mky7br.us-east-2.awsapprunner.com/](https://unp5mky7br.us-east-2.awsapprunner.com/) 
+- **SanAssist Live Application**: [https://unp5mky7br.us-east-2.awsapprunner.com/](https://unp5mky7br.us-east-2.awsapprunner.com/)
+  
 - **Demo Video**: [![SanAssist Demo](readme_imgs/demo_vid.gif)](https://www.youtube.com/watch?v=Yll2-34i1HA)
 
 ---
@@ -522,6 +523,7 @@ In summary, SanAssist demonstrated the following during load testing:
 - Automated updates ensure continuous system reliability.
 
 These results confirm the system's scalability and reliability for high-traffic scenarios while identifying areas for further performance enhancements to reduce failure rates and variability in response times under peak loads.
+
 ---
 
 
