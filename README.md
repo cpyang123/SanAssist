@@ -1,12 +1,35 @@
 
 # SanAssist: Healthcare Data Dashboard with LLM-powered chatbot
 
-Team: 
-Peter - chaopeter.yang@gmail or cy232@duke.edu
-Mobasser - mobasser.haque@gmail.com or mh720@duke.edu
-Nathan - nathanbush46@gmail.com or nsb42@duke.edu
-Huma - syedhumarahim@gmail.com or ss1516@duke.edu
+[![Build and Push Docker Image to Configure AWS ECR, AWS app runner will pull form the latest version](https://github.com/cpyang123/SanAssist/actions/workflows/deploy_to_production.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/deploy_to_production.yml)
 
+[![Docker Image CI Format](https://github.com/cpyang123/SanAssist/actions/workflows/format.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/format.yml)
+
+[![Docker Image CI Install](https://github.com/cpyang123/SanAssist/actions/workflows/install.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/install.yml)
+
+[![Docker Image CI Lint](https://github.com/cpyang123/SanAssist/actions/workflows/lint.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/lint.yml)
+
+[![Docker Image CI Main](https://github.com/cpyang123/SanAssist/actions/workflows/main.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/main.yml)
+
+[![Docker Image CI Test](https://github.com/cpyang123/SanAssist/actions/workflows/test.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/test.yml)
+
+### Team Contact Information  
+
+- **Peter Yang**  
+  - Email: [chaopeter.yang@gmail.com](mailto:chaopeter.yang@gmail.com)  
+  - Duke Email: [cy232@duke.edu](mailto:cy232@duke.edu)  
+
+- **Mobasser Haque**  
+  - Email: [mobasser.haque@gmail.com](mailto:mobasser.haque@gmail.com)  
+  - Duke Email: [mh720@duke.edu](mailto:mh720@duke.edu)  
+
+- **Nathan Bush**  
+  - Email: [nathanbush46@gmail.com](mailto:nathanbush46@gmail.com)  
+  - Duke Email: [nsb42@duke.edu](mailto:nsb42@duke.edu)  
+
+- **Huma Rahim**  
+  - Email: [syedhumarahim@gmail.com](mailto:syedhumarahim@gmail.com)  
+  - Duke Email: [ss1516@duke.edu](mailto:ss1516@duke.edu)  
 
 ![SanAssist](sanassist_image.webp)
 
@@ -24,7 +47,7 @@ SanAssist is an innovative web application designed to empower healthcare profes
 ---
 
 ## Live Demonstration:
-- **Web App**: [SanAssist Live Application](link to website)
+- **SanAssist Live Application**: [https://unp5mky7br.us-east-2.awsapprunner.com/](https://unp5mky7br.us-east-2.awsapprunner.com/) 
 - **Demo Video**: [![SanAssist Demo](URL_to_GIF)](URL_to_video)
 
 
@@ -223,15 +246,17 @@ The screenshots above showcase the following features of the **SanAssist** dashb
     ```bash
     pip install -r requirements.txt
     ```
-3. **Run locally**:
+    This is done automatically when setting up Docker.
+3. **Build Docker image**:
     ```bash
-    python app.py
+    make build
     ```
-4. **Build Docker image**:
+4.  **Test Locally**:
     ```bash
-    docker build -t sanassist .
+    make run
     ```
 5. **Push to AWS ECR and deploy via App Runner**.
+    Done with github actions.
 
 ---
 
@@ -244,8 +269,8 @@ SanAssist includes a robust **microservice** that interfaces seamlessly with its
 
 **Key Features**:
 - **Data Pipeline Integration**: The microservice connects directly with the ETL pipeline, ingesting cleaned and processed data from Databricks and delivering it to the web app's dashboard for visualization.
-- **Logging**: Detailed logs are implemented using Python's `logging` library, enabling efficient debugging and system monitoring.
-- **Containerization**: The microservice is containerized using a **Distroless Docker image**, ensuring lightweight and secure runtime environments.
+- **Logging**: Detailed logs are implemented with AWS App Runner
+- **Containerization**: The microservice is containerized using a **semi-Distroless Docker image**, ensuring lightweight and secure runtime environments.
 - **Dockerfile**:
   The repository includes a `Dockerfile` to build and deploy the microservice. 
 
@@ -288,7 +313,7 @@ The infrastructure for SanAssist is managed programmatically using **AWS CloudFo
 **Key Components**:
 1. **AWS ECR**:
    - Stores Docker images for the application.
-   - Configured via CloudFormation templates for automated repository creation.
+   - Configured via templates for automated repository creation.
 
 2. **AWS App Runner**:
    - Deployed via CloudFormation to automatically retrieve and deploy the latest Docker image from ECR.
@@ -308,7 +333,7 @@ SanAssist employs a robust CI/CD pipeline implemented using **GitHub Actions**, 
    - Each push to the repository triggers workflows to:
      - Build the Docker image.
      - Run unit tests using **Pytest**.
-     - Perform static code analysis using **Flake8**.
+     - Perform static code analysis using **Ruff**.
 
 2. **Deployment**:
    - On successful tests, the workflow:
@@ -329,7 +354,7 @@ The GitHub repository is configured to facilitate reproducibility, maintainabili
 1. **GitHub Actions**:
    - Includes workflows for:
      - **Install**: Sets up the development environment.
-     - **Lint**: Ensures code quality with `flake8`.
+     - **Lint**: Ensures code quality with `Ruff`.
      - **Test**: Runs unit tests.
      - **Format**: Enforces PEP8 standards using `Black`.
 
