@@ -8,7 +8,7 @@ test:
 	find ./src/tests -name "*test*.py" -exec python -m pytest --nbval -v {} +
 	
 lint:
-	ruff check --ignore E402,E702
+	ruff check --ignore E402,E702,F821
 # as those errors are in the ipynb files which are just for testing
 	
 pylint:
