@@ -13,6 +13,35 @@
 
 [![Docker Image CI Test](https://github.com/cpyang123/SanAssist/actions/workflows/test.yml/badge.svg)](https://github.com/cpyang123/SanAssist/actions/workflows/test.yml)
 
+## Table of Contents
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Live Demonstration](#live-demonstration)
+- [Achievements](#achievements)
+  - [Advanced LLM Fine-Tuning](#advanced-llm-fine-tuning)
+  - [Dynamic Chatbot](#dynamic-chatbot)
+- [System Architecture](#system-architecture)
+  - [Data Engineering Workflow](#data-engineering-workflow-overview)
+  - [Components](#components)
+- [Features](#features)
+  - [Interactive Dashboard](#interactive-dashboard)
+  - [LLM-Driven Insights](#llm-driven-insights)
+  - [ETL Pipeline](#etl-pipeline)
+- [How It Works](#how-it-works)
+- [Deployment Details](#deployment-details)
+- [Setup and Installation](#setup-and-installation)
+- [Microservice](#microservice)
+- [Data Engineering](#data-engineering)
+- [Infrastructure as Code](#infrastructure-as-code-iac)
+- [CI/CD](#continuous-integration-and-continuous-delivery-cicd)
+- [GitHub Repository Configurations](#github-repository-configurations)
+- [Quantitative Assessment](#quantitative-assessment)
+  - [Load Testing](#load-testing--performance-and-scalability)
+  - [LLM Results](#llm-quantitative-results)
+- [Future Enhancements](#future-enhancements)
+- [Teamwork Reflections](#teamwork-reflections)
+- [References](#references)
+
 ### Team Contact Information  
 
 - **Peter Yang**  
