@@ -26,15 +26,15 @@ def main(sqrl: ParametersArgs) -> None:
         po.SelectParameterOption(
             "g0",
             "Blood Type",
-            columns=["[Blood Type]", "[Date of Admission]"],
-            aliases=["blood_type", "date"],
+            columns=[ "[Date of Admission]", "[Blood Type]"],
+            aliases=["date", "blood_type"],
         ),
-        po.SelectParameterOption("g1", "Date", columns=["[Date of Admission]"]),
+        po.SelectParameterOption("g1", "Date", columns=["[Date of Admission]"], aliases=["date"]),
         po.SelectParameterOption(
-            "g2", "Gender", columns=["[Date of Admission]", "Gender"]
+            "g2", "Gender", columns=["[Date of Admission]", "Gender"], aliases=["date", "gender"]
         ),
         po.SelectParameterOption(
-            "g3", "Insurance", columns=["[Insurance Provider]", "[Date of Admission]"]
+            "g3", "Insurance", columns=["[Date of Admission]", "[Insurance Provider]"], aliases=["date", "insurance"]
         ),
     ]
     p.SingleSelectParameter.CreateWithOptions(

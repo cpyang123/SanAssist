@@ -100,8 +100,8 @@ def generate_response_with_overarching_data(user_input: str, patient_db: dict) -
     # Incorporate patient DB info into the prompt
     prompt = (
         f"{instruction}\n\n"
-        f"Patient Database:\n{patient_db_str}\n\n"
-        f"Patient's Description: {user_input}\n\nDoctor's Response:"
+        f"Medical Data:\n{patient_db_str}\n\n"
+        f"User's Questions: {user_input}\n\nDoctor's Response:"
     )
 
     # Tokenize the prompt
@@ -130,8 +130,8 @@ def generate_response_with_overarching_data(user_input: str, patient_db: dict) -
         response = generated_text[len(prompt):].strip()
 
     # If the model tries to mention "Patient's Description:" again, remove it
-    if response.startswith("Patient's Description:"):
-        response = response.split("Patient's Description:")[0].strip()
+    if response.startswith("User's Questions:"):
+        response = response.split("User's Questions:")[0].strip()
 
     return response
 
