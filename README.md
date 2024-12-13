@@ -77,8 +77,7 @@ SanAssist is an innovative web application designed to empower healthcare profes
 
 ## Live Demonstration:
 - **SanAssist Live Application**: [https://unp5mky7br.us-east-2.awsapprunner.com/](https://unp5mky7br.us-east-2.awsapprunner.com/) 
-- **Demo Video**: [![SanAssist Demo](URL_to_GIF)](URL_to_video)
-
+- **Demo Video**: [![SanAssist Demo](readme_imgs/demo_vid.gif)](https://www.youtube.com/watch?v=Yll2-34i1HA)
 
 ---
 
@@ -121,7 +120,7 @@ SanAssist is an innovative web application designed to empower healthcare profes
 
 ### Architetcure Diagram
 
-![Architetcure Diagram](readme_imgs/de_flow.png)
+![Architetcure Diagram](readme_imgs/de_flow.jpeg)
 
 ### Data Engineering Workflow Overview
 
