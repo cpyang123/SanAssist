@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, lit, when
 import random
 
+
 def augment_data(input_file_path, output_file_path):
     # Create Spark session
     spark = SparkSession.builder.appName("Data Augmentation").getOrCreate()
@@ -55,6 +56,7 @@ def augment_data(input_file_path, output_file_path):
     # Save the augmented data as a CSV file
     df.write.option("header", True).mode("overwrite").csv(output_file_path)
     print("Data Augmentation Complete. Saved to:", output_file_path)
+
 
 # Main function
 if __name__ == "__main__":

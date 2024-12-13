@@ -30,7 +30,7 @@ def main(ctx: dict[str, Any], sqrl: ContextArgs) -> None:
         assert isinstance(name_param, p.TextParameter)
 
         name_pattern = name_param.get_entered_text().apply_percent_wrap()
-        
+
         # ctx["raw_name"] = str(name_param.get_entered_text())
 
         sqrl.set_placeholder("name_pattern", name_pattern)
@@ -40,7 +40,7 @@ def main(ctx: dict[str, Any], sqrl: ContextArgs) -> None:
         assert isinstance(prompt_param, p.TextParameter)
 
         prompt_pattern = prompt_param.get_entered_text()
-        
+
         # ctx["raw_name"] = str(name_param.get_entered_text())
 
         sqrl.set_placeholder("prompt_pattern", prompt_pattern)

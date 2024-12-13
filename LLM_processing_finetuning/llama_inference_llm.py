@@ -33,15 +33,14 @@
 
 #     # Generate the response using the pipeline
 #     outputs = pipe(
-#         prompt, 
+#         prompt,
 #         max_length=512,  # Adjust as needed
-#         num_return_sequences=1, 
+#         num_return_sequences=1,
 #         do_sample=False
 #     )
 
 #     # The pipeline returns a list of generated sequences. Extract the text.
 #     response = outputs[0]['generated_text']
-
 
 
 #     return response
@@ -102,12 +101,13 @@
 # print(outputs[0]["generated_text"][len(prompt) :])
 
 
-
-
 from transformers import pipeline
 
 # Try a simpler call first to see if the model returns anything at all
-pipe = pipeline("text-generation", model="m42-health/Llama3-Med42-8B", device_map="auto")
+pipe = pipeline(
+    "text-generation", model="m42-health/Llama3-Med42-8B", device_map="auto"
+)
+
 
 def get_treatment_plan(patient_data: str, user_query: str) -> str:
     # A simpler prompt, directly asking the model:
@@ -119,26 +119,27 @@ def get_treatment_plan(patient_data: str, user_query: str) -> str:
 
     outputs = pipe(
         prompt,
-        max_new_tokens=200,       # Limit how much text we generate
+        max_new_tokens=200,  # Limit how much text we generate
         do_sample=False,
-        truncation=True           # Explicitly enable truncation
+        truncation=True,  # Explicitly enable truncation
     )
-    
+
     # Get the raw response (the model may or may not repeat the prompt)
-    raw_response = outputs[0]['generated_text']
-    
+    raw_response = outputs[0]["generated_text"]
+
     # Print raw response for debugging
     print("Raw Response:", repr(raw_response))
-    
+
     # If the model is repeating the prompt, you can try removing it.
     # But first, check what the raw response looks like.
     # If needed, remove the prompt prefix only if it appears at the start.
     if raw_response.startswith(prompt):
-        response = raw_response[len(prompt):].strip()
+        response = raw_response[len(prompt) :].strip()
     else:
         response = raw_response.strip()
 
     return response
+
 
 if __name__ == "__main__":
     patient_data_example = "A 45-year-old male with hypertension and type 2 diabetes."

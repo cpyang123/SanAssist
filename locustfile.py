@@ -2,6 +2,7 @@ from locust import HttpUser, task, constant
 import random
 from pyquery import PyQuery as pq
 
+
 class ExampleFlaskAppUser(HttpUser):
     wait_time = constant(2)
 

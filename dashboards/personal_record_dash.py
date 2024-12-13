@@ -17,6 +17,7 @@ healthy_ranges = {
     "Hemoglobin": (12, 16),
 }
 
+
 # Calculate deviations
 def calculate_deviation(value, healthy_range):
     if value < healthy_range[0]:
@@ -35,16 +36,16 @@ async def main(sqrl: DashboardArgs) -> d.HtmlDashboard:
     It is imperative to set the correct return type in the function signature for "main" above! It allows Squirrels to provide the correct format to
     the data catalog without having to run this function.
     """
-    
+
     df = await sqrl.dataset("protected_dataset_dash")
-    
-    prompt = str(df.iloc[0,-1])
-    
+
+    prompt = str(df.iloc[0, -1])
+
     print(prompt)
-    
+
     df = df.iloc[[0], :-1]
     response = generate_response_with_patient_data(prompt, df.to_dict())
-    
+
     # print(df)
     categories = list(healthy_ranges.keys())
     patient_values = df.loc[0, categories]  # Example: values for the first patient
@@ -103,17 +104,15 @@ async def main(sqrl: DashboardArgs) -> d.HtmlDashboard:
     # Update layout to improve readability
     condition = str(df["Medical Condition"][0])
     cleaned_fig.update_layout(
-        title= f"Health Metrics Comparison (Condition: {condition})" ,
+        title=f"Health Metrics Comparison (Condition: {condition})",
         height=600,
         margin=dict(t=50, b=50),
         showlegend=True,
     )
 
     # Export the combined figure as an interactive HTML string
-    combined_html_string = cleaned_fig.to_html(full_html=True, include_plotlyjs='cdn')
-    
-    
-    
+    combined_html_string = cleaned_fig.to_html(full_html=True, include_plotlyjs="cdn")
+
     print(response)
 
     # Create the HTML content for the textbox
@@ -132,10 +131,11 @@ async def main(sqrl: DashboardArgs) -> d.HtmlDashboard:
     """
 
     # Append the textbox HTML to the plotly-generated HTML
-    final_html_string = combined_html_string.replace("</body>", f"{description_html}</body>")
-    
+    final_html_string = combined_html_string.replace(
+        "</body>", f"{description_html}</body>"
+    )
+
     print(final_html_string)
     # print()
-
 
     return d.HtmlDashboard(final_html_string)

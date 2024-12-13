@@ -26,15 +26,23 @@ def main(sqrl: ParametersArgs) -> None:
         po.SelectParameterOption(
             "g0",
             "Blood Type",
-            columns=[ "[Date of Admission]", "[Blood Type]"],
+            columns=["[Date of Admission]", "[Blood Type]"],
             aliases=["date", "blood_type"],
         ),
-        po.SelectParameterOption("g1", "Date", columns=["[Date of Admission]"], aliases=["date"]),
         po.SelectParameterOption(
-            "g2", "Gender", columns=["[Date of Admission]", "Gender"], aliases=["date", "gender"]
+            "g1", "Date", columns=["[Date of Admission]"], aliases=["date"]
         ),
         po.SelectParameterOption(
-            "g3", "Insurance", columns=["[Date of Admission]", "[Insurance Provider]"], aliases=["date", "insurance"]
+            "g2",
+            "Gender",
+            columns=["[Date of Admission]", "Gender"],
+            aliases=["date", "gender"],
+        ),
+        po.SelectParameterOption(
+            "g3",
+            "Insurance",
+            columns=["[Date of Admission]", "[Insurance Provider]"],
+            aliases=["date", "insurance"],
         ),
     ]
     p.SingleSelectParameter.CreateWithOptions(
@@ -53,8 +61,10 @@ def main(sqrl: ParametersArgs) -> None:
         name_text_options,
         description="The name of the patient",
     )
-    
-    prompt_opt = [po.TextParameterOption(default_text="How's the patient looking like?")]
+
+    prompt_opt = [
+        po.TextParameterOption(default_text="How's the patient looking like?")
+    ]
     p.TextParameter.CreateWithOptions(
         "prompt_text",
         "Prompt",

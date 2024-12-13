@@ -2,12 +2,12 @@ import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import json
 
-# Load the model and tokenizer once at the start 
-model_path = './trained_lora_2k'
+# Load the model and tokenizer once at the start
+model_path = "./trained_lora_2k"
 tokenizer = GPT2Tokenizer.from_pretrained(model_path)
 model = GPT2LMHeadModel.from_pretrained(model_path)
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 model.eval()
 
@@ -24,14 +24,15 @@ instruction = (
     "Be sure to note any metrics that look concerning"
 )
 
+
 def generate_response_with_patient_data(user_input: str, patient_db: dict) -> str:
     """
     Generates a response from the model given user input and patient database information.
-    
+
     Args:
         user_input (str): The patient's description or query.
         patient_db (dict): A dictionary containing patient-specific data (e.g. name, history, known conditions).
-        
+
     Returns:
         str: The doctor's response from the model.
     """
@@ -46,7 +47,7 @@ def generate_response_with_patient_data(user_input: str, patient_db: dict) -> st
     )
 
     # Tokenize the prompt
-    inputs = tokenizer(prompt, return_tensors='pt').to(device)
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
 
     # Generate model output
     with torch.no_grad():
@@ -66,9 +67,9 @@ def generate_response_with_patient_data(user_input: str, patient_db: dict) -> st
     # Extract the doctor's response
     response_start = generated_text.find("Doctor's Response:")
     if response_start != -1:
-        response = generated_text[response_start + len("Doctor's Response:"):].strip()
+        response = generated_text[response_start + len("Doctor's Response:") :].strip()
     else:
-        response = generated_text[len(prompt):].strip()
+        response = generated_text[len(prompt) :].strip()
 
     # If the model tries to mention "Patient's Description:" again, remove it
     if response.startswith("Patient's Concern:"):
@@ -83,14 +84,15 @@ instruction_overarching = (
     "and give possible suggestions to solve the problem when applicable."
 )
 
+
 def generate_response_with_overarching_data(user_input: str, patient_db: dict) -> str:
     """
     Generates a response from the model given user input and data context.
-    
+
     Args:
         user_input (str): The patient's description or query.
         patient_db (dict): A dictionary containing patient-specific data (e.g. name, history, known conditions).
-        
+
     Returns:
         str: The doctor's response from the model.
     """
@@ -105,7 +107,7 @@ def generate_response_with_overarching_data(user_input: str, patient_db: dict) -
     )
 
     # Tokenize the prompt
-    inputs = tokenizer(prompt, return_tensors='pt').to(device)
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
 
     # Generate model output
     with torch.no_grad():
@@ -125,9 +127,9 @@ def generate_response_with_overarching_data(user_input: str, patient_db: dict) -
     # Extract the doctor's response
     response_start = generated_text.find("Doctor's Response:")
     if response_start != -1:
-        response = generated_text[response_start + len("Doctor's Response:"):].strip()
+        response = generated_text[response_start + len("Doctor's Response:") :].strip()
     else:
-        response = generated_text[len(prompt):].strip()
+        response = generated_text[len(prompt) :].strip()
 
     # If the model tries to mention "Patient's Description:" again, remove it
     if response.startswith("User's Questions:"):
@@ -144,8 +146,8 @@ if __name__ == "__main__":
         "known_conditions": ["hypertension", "type 2 diabetes"],
         "recent_tests": {
             "blood_pressure": "150/90 mmHg",
-            "blood_sugar": " fasting glucose 140 mg/dL"
-        }
+            "blood_sugar": " fasting glucose 140 mg/dL",
+        },
     }
 
     user_input = "Doctor, I recently had an ultrasound and they found a mass on my kidney. What could this mean?"
