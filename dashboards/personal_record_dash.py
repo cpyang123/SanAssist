@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 from squirrels import DashboardArgs, dashboards as d
 import plotly.subplots as sp
-from inference_LLM_model import generate_response_with_patient_data
+from smaller_inference_LLM_model import generate_response_with_patient_data
 
 
 # Define healthy ranges (simplified)

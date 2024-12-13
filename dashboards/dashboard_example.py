@@ -4,7 +4,7 @@ import io
 import base64
 import pandas as pd
 import plotly.express as px
-from inference_LLM_model import generate_response_with_overarching_data
+from smaller_inference_LLM_model import generate_response_with_patient_data
 
 async def main(sqrl: DashboardArgs) -> d.HtmlDashboard:
     """
@@ -57,7 +57,7 @@ async def main(sqrl: DashboardArgs) -> d.HtmlDashboard:
     print(df_monthly.head(2).to_dict())
     print(prompt)
     
-    response = generate_response_with_overarching_data(prompt, df_monthly.head(2).to_dict())
+    response = generate_response_with_patient_data(prompt, df_monthly.head(50).to_dict())
     print(response)
     # Create the HTML content for the textbox
     description_html = f"""
