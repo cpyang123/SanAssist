@@ -13,7 +13,7 @@ healthy_ranges = {
     "SpO2": (95, 100),
     "Creatinine": (0.5, 1.2),
     "CRP": (0, 1),
-    "WBC Count": (4, 11),
+    "WBC Count": (4500, 11000),
     "Hemoglobin": (12, 16),
 }
 
