@@ -13,13 +13,16 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy specific directories
+COPY . /app 
+# # Copy specific directories
 COPY assets /app/assets
 COPY data /app/data
 COPY models /app/models
 COPY pyconfigs /app/pyconfigs
 COPY seeds /app/seeds
 COPY src /app/src
+COPY dashboards /app/dashboards
+
 
 # Copy specific files
 COPY Dockerfile /app/Dockerfile
